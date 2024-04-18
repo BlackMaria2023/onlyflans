@@ -27,6 +27,9 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href={% url "welcome" %}>welcome</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href={% url "contacto" %}>contacto</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -35,9 +38,11 @@
     
     {% block 'header' %}
     {% load static %}
+    <div class="text-center">
     <div style="background: red;">
-            <img src="{% static 'onlyflans.png' %}">
+        <img src="{% static 'onlyflans.png' %}" width="200" height="auto">
         </div>
+      </div>
     {% endblock %}
 
     {% block 'contenido' %}
@@ -47,9 +52,11 @@
     {% endblock %}
 
     {% block 'footer' %}
+    <div class="text-center">
     <div style="background: green;">
         Creado por María José Vargas
     </div>
+  </div>
     {% endblock %}
     
     {% block 'javascript' %}

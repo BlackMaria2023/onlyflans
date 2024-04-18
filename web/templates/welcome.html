@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 
 {% block 'contenido' %}
-    <h1>este es el contenido del welcome</h1>
+<div class="row">
+    {%for flan in flanes%}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{flan.image_url}}" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{flan.name}}</h5>
+          <p class="card-text">{{flan.description}}.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+        {% endfor %}
 {% endblock %}

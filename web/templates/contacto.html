@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block 'contenido' %}
+
+    <h1>Contacto</h1>
+    <form method="POST">
+        
+        {% csrf_token %} 
+        {{form.non_field_errors}}
+        {{form.customer_email.label_tag}}
+        {{form.customer_email}}
+        <div class="text-danger">{{form.customer_email.errors}}</div>
+        {{form.customer_name.label_tag}}
+        {{form.customer_name}}
+        {{form.message.label_tag}}
+        {{form.message}}
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    
+{% endblock 'contenido' %}
