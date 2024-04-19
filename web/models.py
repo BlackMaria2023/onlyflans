@@ -6,7 +6,7 @@ from django.utils.text import slugify
 class Flan(models.Model):
     flan_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=64)#linea de texto
-    descriptiorn = models.TextField()#caja de texto
+    description = models.TextField()#caja de texto
     image_url = models.URLField()
     slug = models.SlugField(unique=True, blank=True)#url amigable
     is_private = models.BooleanField(default=False)
@@ -14,7 +14,7 @@ class Flan(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super().save(self,*args, **kwargs)#polimorfismo, sobreescribe a models
+        super().save(*args, **kwargs)#polimorfismo, sobreescribe a models
 
     def __str__(self):
         return self.name
