@@ -1,6 +1,5 @@
 # onlyflans
-# onlyfans2
-# onlyfans2
+
 2. Presentar puntos del último requerimiento del Hito 4
 (3 Puntos)
 
