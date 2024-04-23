@@ -1,25 +1,35 @@
 from django.db import models
-import uuid #id unico
-from django.utils.text import slugify 
+import uuid  # id único
+from django.utils.text import slugify
+from django.conf import settings
 
-# Create your models here.
+class Comment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    flan = models.ForeignKey('Flan', on_delete=models.CASCADE)  # Referencia indirecta
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'Comment by {self.user.username} on {self.flan.name}'
+
 class Flan(models.Model):
     flan_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    name = models.CharField(max_length=64)#linea de texto
-    description = models.TextField()#caja de texto
+    name = models.CharField(max_length=64)  # línea de texto
+    description = models.TextField()  # caja de texto
     image_url = models.URLField()
-    slug = models.SlugField(unique=True, blank=True)#url amigable
+    slug = models.SlugField(unique=True, blank=True)  # URL amigable
     is_private = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super().save(*args, **kwargs)#polimorfismo, sobreescribe a models
+        super().save(*args, **kwargs)  # Polimorfismo, sobreescribe a models
 
     def __str__(self):
         return self.name
-    
-    #creo un modelo contact form
 
 class ContactForm(models.Model):
     contact_form_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
@@ -28,6 +38,4 @@ class ContactForm(models.Model):
     message = models.TextField()
 
     def __str__(self):
-        return self.costumer_name
-
-
+        return self.customer_name

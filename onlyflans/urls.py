@@ -29,5 +29,7 @@ urlpatterns = [
        path('exito/', exito,name="exito"),
        path('registration/',include("django.contrib.auth.urls") ),
        path('flan/<int:flan_id>/', views.flan_detail, name='flan_detail'),
+       path('flan/<int:flan_id>/add_comment/', views.add_comment, name='add_comment'),
 
+       
 ]

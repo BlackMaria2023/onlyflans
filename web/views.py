@@ -5,6 +5,27 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required #para que solo los usuarios logueados puedan ver la pagina welcome
 
 
+
+from django.shortcuts import render, redirect
+from .models import Flan, Comment
+from .forms import CommentForm
+
+def add_comment(request, flan_id):
+    flan = Flan.objects.get(id=flan_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.flan = flan
+            comment.save()
+            return redirect('flan_detail', flan_id=flan_id)
+    else:
+        form = CommentForm()
+    
+    return render(request, 'add_comment.html', {'form': form, 'flan': flan})
+
+
 # Create your views here.
 def index(request):
     flanes_publicos = Flan.objects.filter(is_private=False)
@@ -16,9 +37,10 @@ def about(request):
 def exito(request):
     return render(request, 'exito.html')
 
-def flan_detail(request,flan_id):
-    flan = get_object_or_404(Flan,pk=flan_id)
-    return render(request, 'flan_detail.html', {'flan':flan})
+def flan_detail(request, flan_id):
+    flan = get_object_or_404(Flan, pk=flan_id)
+    comments = Comment.objects.filter(flan=flan)
+    return render(request, 'flan_detail.html', {'flan': flan, 'comments': comments})
 
 @login_required
 def welcome(request):
@@ -42,3 +64,7 @@ class CustomLoginView(LoginView):
 
 class CustomLogoutView(LogoutView):
     next_page = '/'
+
+
+
+    
