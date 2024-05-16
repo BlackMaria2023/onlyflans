@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True if os.getenv('DEBUG')=='True' else False
 
-ALLOWED_HOSTS = ['onlyflans.onrender.com']
+ALLOWED_HOSTS = ['*','onlyflans-uggi.onrender.com']
 
 
 # Application definition
